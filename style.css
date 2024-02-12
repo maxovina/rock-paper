@@ -1,0 +1,109 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #222;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.gameStats {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 1000px;
+    margin: 0 auto;
+    color: white;
+    background-color: #1a1919;
+    padding: 25px 0;
+    padding-top: 10px;
+    border-radius: 0 0 15px 15px;
+}
+
+.scoreContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 120px;
+
+}
+
+.myDiv{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2em;
+    margin-left: 50px;
+    width: 390px;
+}
+
+.buttonContainer {
+    width: 1100px;
+    margin: 50px auto;
+    display: flex;
+    justify-content: space-around;
+}
+
+.choiceButton {
+    border-radius: 50%;
+    width: 250px;
+    height: 250px;
+    background-color: #1a1919;
+    color: white;
+    border: none;
+    font-size: 2.4em;
+    font-weight: 600;
+    
+}
+
+#playerScoreDisplay , #computerScoreDisplay {
+    font-size: 3em;
+}
+
+.choiceButton:hover {
+    background-color: #131313;
+    font-size: 3em;
+    transition: 0.25s all;
+}
+
+.winScreen{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: #1a1919;
+    transition: opacity 0.75s, visibility 0.75s;
+}
+
+.winScreen-hidden{
+    opacity: 0;
+    visibility: hidden;
+}
+
+#winnerMessage {
+    font-size: 5em;
+}
+
+.resetButton {
+    padding: 20px 45px;
+    border-radius: 10px;
+    background-color: #131313;
+    margin: 25px 0;
+    color: rgb(204, 203, 203);
+    border: none;
+    transition: color 0.25s, font-size 0.25s;
+    font-size: 1em;
+}
+
+.resetButton:hover{
+    color: white;
+    font-size: 1.3em;
+    transition: font-size 0.25s;
+}

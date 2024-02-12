@@ -1,3 +1,48 @@
+const playerScore = document.querySelector('#playerScore');
+const computerScore = document.querySelector('#computerScore');
+const displayWinner = document.querySelector('#displayWinner');
+const choiceButtons = document.querySelectorAll('.choiceButton');
+const winScreen= document.querySelector('#winScreen');
+const winnerMessage = document.querySelector('#winnerMessage');
+
+choiceButtons.forEach(button => {
+    button.addEventListener('click', e => {
+        let playerChoice = e.target.value;
+        let computerChoice = getComputerChoice();
+        playRound(playerChoice, computerChoice);
+        if(Number(playerScore.textContent) == 5){
+            resetGame(1);
+        }else if(Number(computerScore.textContent) == 5){
+            resetGame(0);
+        }
+    })
+})
+
+function resetGame(gameWinner){
+    winScreen.classList.toggle('winScreen-hidden');
+    winScreen.classList.toggle('winScreen');
+    if(gameWinner == 0){
+        winnerMessage.style.color = 'red';
+        winnerMessage.textContent = 'YOU LOST!';
+    }else if(gameWinner == 1){
+        winnerMessage.style.color = '#24d833';
+        winnerMessage.textContent = 'YOU WON!';
+    }
+    setTimeout(() => {
+        let resetButton = document.createElement('button');
+        resetButton.textContent = 'Restart the Game';
+        resetButton.classList.toggle('resetButton')
+        resetButton.addEventListener('click', () => {
+            playerScore.textContent = 0;
+            computerScore.textContent = 0;
+            winScreen.classList.toggle('winScreen-hidden');
+            winScreen.classList.toggle('winScreen');
+            winScreen.removeChild(resetButton);
+        })
+        winScreen.appendChild(resetButton);
+    }, 2000)
+}
+
 function getComputerChoice(){
     let randomNum = Math.floor(Math.random() * 3 + 1);
     switch(randomNum){
@@ -10,61 +55,41 @@ function getComputerChoice(){
     }
 }
 
-function getPlayerChoice(){
-    let playerChoice = window.prompt("Enter : Rock / Paper / Scissors").toLowerCase();
-    if(playerChoice === "rock" || playerChoice === "paper" || playerChoice === "scissors"){
-        let letter = playerChoice.at(0);
-        playerChoice = playerChoice.replace(letter, letter.toUpperCase())
-        return playerChoice;
-    }else{
-        alert("You entered wrong string!")
-    }
-}
-
-
 function playRound(playerSelection, computerSelection){
     if(playerSelection === "Rock" && computerSelection === "Scissors"){
-        alert(`You won! ${playerSelection} beats ${computerSelection}.`);
-        return 1;
+        updateScore(1);
     }else if(playerSelection === "Paper" && computerSelection === "Rock"){
-        alert(`You won! ${playerSelection} beats ${computerSelection}.`);
-        return 1;
+        updateScore(1);
     }else if(playerSelection === "Scissors" && computerSelection === "Paper"){
-        alert(`You won! ${playerSelection} beats ${computerSelection}.`);
-        return 1;
+        updateScore(1);
     }else if(playerSelection === computerSelection){
-        alert(`Draw!`);
-        return 2;
+        updateScore(2);
     }else {
-        alert(`You lost! ${computerSelection} beats ${playerSelection}.`);
-        return 0;
+        updateScore(0);
 
     }
     
 }
 
-function game(){
-    let playerScore = 0;
-    let computerScore = 0;
-    while(playerScore < 5 && computerScore < 5){
-        let score = playRound(getPlayerChoice(), getComputerChoice());
-        if(score === 1){
-            playerScore++;
-            alert(`PlayerScore: ${playerScore} | ComputerScore: ${computerScore}`);
-        }else if(score === 2){
-            alert(`PlayerScore: ${playerScore} | ComputerScore: ${computerScore}`);
-        }else {
-            computerScore++;
-            alert(`PlayerScore: ${playerScore} | ComputerScore: ${computerScore}`);
-        }
+function updateScore(whoWon){
+    if(whoWon == 1){
+        let currentScore = Number(playerScore.textContent);
+        playerScore.textContent = `${currentScore + 1}`;
+        playerScore.style.fontWeight = '600';
+        displayWinner.textContent = 'YOU WON!';
+        displayWinner.style.color = '#24d833';
         
-    }
-    if(playerScore == 5){
-        alert("You Won!! Player wins");
-    }else if(computerScore == 5){
-        alert("You Lost!! Computer wins");
+    }else if(whoWon == 0){
+        let currentScore = Number(computerScore.textContent);
+        computerScore.textContent = `${currentScore + 1}`;
+        playerScore.style.fontWeight = '600';
+        displayWinner.textContent = 'YOU LOST!';
+        displayWinner.style.color = 'red';
+    }else {
+        displayWinner.textContent = 'DRAW';
+        displayWinner.style.color = 'orange'
     }
 }
 
-game();
+
 
